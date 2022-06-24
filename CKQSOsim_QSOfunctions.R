@@ -72,39 +72,39 @@ f_CKQSO_sample<-function(n,rG,rF){
     Xn+sum(UjN)
 }
 
-## Collection of kernel and seed functions
-f_CKQSO_kerneldist_norm_05<-function(numsim,...){rnorm(numsim,mean=0,sd=sqrt(0.5))}
-f_CKQSO_kernel_norm_05<-function(x,y,...){rnorm(1,mean=(x+y)/2,sd=sqrt(0.5))}
-f_CKQSO_seed_norm_0_1<-function(numsim,...){rnorm(numsim,mean=0,sd=sqrt(1))}
-f_CKQSO_seed_norm_0_10<-function(numsim,...){rnorm(numsim,mean=0,sd=sqrt(10))}
-f_CKQSO_seed_norm_1_1<-function(numsim,...){rnorm(numsim,mean=0,sd=sqrt(1))}
-f_CKQSO_seed_norm_1_10<-function(numsim,...){rnorm(numsim,mean=0,sd=sqrt(10))}
-f_CKQSO_seed_norm_0_01<-function(numsim,...){rnorm(numsim,mean=0,sd=sqrt(0.1))}
-f_CKQSO_seed_norm_1_01<-function(numsim,...){rnorm(numsim,mean=0,sd=sqrt(0.1))}
-f_CKQSO_seed_exp_1<-function(numsim,...){rexp(numsim,rate=1)}
-f_CKQSO_seed_exp_10<-function(numsim,...){rexp(numsim,rate=10)}
-f_CKQSO_seed_exp_01<-function(numsim,...){rexp(numsim,rate=0.1)}
+f_dosimulation_forparamset<-function(n,pop_size,delta,alpha,rG,rG_pop,vG,rF,vF,m,b_dosimul,b_doplot,b_dosave,c_fileprefix,otherparams,res_exact,res_approxBT,res_approxBF,res_popAlg,legendpos="topleft"){
+    rexp(1)
+    RNG_kind<-RNGkind()
+    RNG_version<-getRversion()
+    Rseed_exact<-NA
+    Rseed_approxBT<-NA
+    Rseed_approxBF<-NA
+    Rseed_popAlg<-NA
+    if(b_dosimul){Rseed_exact<-.Random.seed;res_exact<-replicate(pop_size,f_CKQSO_sample(n=n,rG=rG,rF=rF),simplify=TRUE)}
+    d_res_exact<-density(norm0_1norm05_exact)
+    print("======================")
+    if(b_dosimul){Rseed_approxBT<-.Random.seed;res_approxBT<-f_CKQSO_approx_pop_sample_calcN(delta,alpha,m,vF,vG,n,pop_size,rG,BonferroniCorrect=TRUE)}
+    d_res_approxBT<-density(norm0_1norm05_approxBT)
+    print("======================")
+    if(b_dosimul){Rseed_approxBF<-.Random.seed;res_approxBF<-f_CKQSO_approx_pop_sample_calcN(delta,alpha,m,vF,vG,n,pop_size,rG,BonferroniCorrect=FALSE)}
+    d_res_approxBF<-density(norm0_1norm05_approxBF)
+    print("======================")
+    if(b_dosimul){Rseed_popAlg<-.Random.seed;res_popAlg<-f_KQSO_pop_traj_sample(rG_pop,n,rF,pop_size)}
+    d_res_popAlg<-density(res_popAlg)
 
 
-# l_kernel_functions<-
-# l_seed_functions<-
-# v_n<-
-# v_pop_size<-
-# v_delta<-
-# v_alpha<-
-# 
-# l_setups<-Cartesian_product_lists(l_kernel_functions,l_seed_functions,v_n,v_pop_size,v_delta,v_alpha)
-# 
-# f_CKQSO_kernel_norm_05<-function(x,y,...){rnorm(1,mean=(x+y)/2,sd=sqrt(0.5))}
-# f_CKQSO_seed_norm_0_1<-function(x,y,...){rnorm(1,mean=0,sd=sqrt(1))}
-# f_CKQSO_seed_norm_0_10<-function(x,y,...){rnorm(1,mean=0,sd=sqrt(10))}
-# f_CKQSO_seed_norm_1_1<-function(x,y,...){rnorm(1,mean=0,sd=sqrt(1))}
-# f_CKQSO_seed_norm_1_10<-function(x,y,...){rnorm(1,mean=0,sd=sqrt(10))}
-# f_CKQSO_seed_norm_0_01<-function(x,y,...){rnorm(1,mean=0,sd=sqrt(0.1))}
-# f_CKQSO_seed_norm_1_01<-function(x,y,...){rnorm(1,mean=0,sd=sqrt(0.1))}
-# f_CKQSO_seed_exp_1<-function(x,y,...){rexp(1,rate=1)}
-# f_CKQSO_seed_exp_10<-function(x,y,...){rexp(1,rate=10)}
-# f_CKQSO_seed_exp_01<-function(x,y,...){rexp(1,rate=0.1)}
-
-## =============================================================================
-
+    if (b_doplot){
+        v_xlim<-c(min(c(d_res_popAlg$x,d_res_exact$x,d_res_approxBT$x,d_res_approxBF$x)),max(c(d_res_popAlg$x,d_res_exact$x,d_res_approxBT$x,d_res_approxBF$x)))
+	v_ylim<-c(min(c(d_res_popAlg$y,d_res_exact$y,d_res_approxBT$y,d_res_approxBF$y)),max(c(d_res_popAlg$y,d_res_exact$y,d_res_approxBT$y,d_res_approxBF$y)))
+        pdf(paste0(c_fileprefix,".pdf"))
+        plot(NA,xlim=v_xlim,ylim=v_ylim,xlab="",ylab="") 
+        points(d_res_exact$x,d_res_exact$y,col=gray(0.9),type="l",lty=1,lwd=7)
+	points(d_res_approxBF$x,d_res_approxBF$y,col=gray(0.7),type="l",lty=1,lwd=5)
+        points(d_res_approxBT$x,d_res_approxBT$y,col=gray(0.5),type="l",lty=1,lwd=3)
+        points(d_res_popAlg$x,d_res_popAlg$y,col="black",type="l",lty=1,lwd=1)
+	legend(legendpos,legend=c("Alg. 2 (exact)","Alg. 3","Alg. 3 (with Rem. 2 correction)","Alg. 1"),pch=19,col=c(gray(0.9),gray(0.7),gray(0.5),"black"),bty="n")
+        dev.off()
+    }
+    save(RNG_kind,RNG_version,Rseed_exact,Rseed_approxBT,Rseed_approxBF,Rseed_popAlg,d_res_popAlg,d_res_exact,d_res_approxBT,d_res_approxBF,res_exact,res_approxBT,res_approxBF,res_popAlg,file=paste0(c_fileprefix,".RData"))
+    list(RNG_kind=RNG_kind,RNG_version=RNG_version,Rseed_exact=Rseed_exact,Rseed_approxBT=Rseed_approxBT,Rseed_approxBF=Rseed_approxBF,Rseed_popAlg=Rseed_popAlg,d_res_popAlg=d_res_popAlg,d_res_exact=d_res_exact,d_res_approxBT=d_res_approxBT,d_res_approxBF=d_res_approxBF,res_exact=res_exact,res_approxBT=res_approxBT,res_approxBF=res_approxBF,res_popAlg=res_popAlg)
+}
