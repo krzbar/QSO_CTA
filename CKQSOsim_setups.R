@@ -8,6 +8,14 @@
 ## that may befall you or others as a result of its use. Please send comments and report 
 ## bugs to Krzysztof Bartoszek at krzbar@protonmail.ch .
 
-l_setup_norm0_1norm05_n4_simulated<-list(n=4,pop_size=1000,delta=0.01,alpha=0.01,rG=f_CKQSO_kerneldist_norm_05,rG_pop=f_CKQSO_kernel_norm_05,vG=0.5,rF=f_CKQSO_seed_norm_0_1,vF=1,m=0,otherparams=list(outfile="norm0_1norm05.txt"),b_dosimul=FALSE,b_doplot=TRUE,b_dosave=FALSE,c_fileprefix="norm0_1norm05",res_exact=norm0_1norm05_exact,res_approxBT=norm0_1norm05_approxBT,res_approxBF=norm0_1norm05_approxBF,res_popAlg=norm0_1norm05_popAlg,legendpos="topleft")
-l_setup_norm0_1norm05_n6_notsimulated<-list(n=6,pop_size=1000,delta=0.01,alpha=0.01,rG=f_CKQSO_kerneldist_norm_05,rG_pop=f_CKQSO_kernel_norm_05,vG=0.5,rF=f_CKQSO_seed_norm_0_1,vF=1,m=0,otherparams=list(outfile="norm0_1norm05_n6.txt"),b_dosimul=TRUE,b_doplot=TRUE,b_dosave=TRUE,c_fileprefix="norm0_1norm05_n6",res_exact=NULL,res_approxBT=NULL,res_approxBF=NULL,res_popAlg=NULL,legendpos="topright")
+##l_setup_norm0_1norm05_n4_simulated<-list(n=4,pop_size=1000,delta=0.01,alpha=0.01,rG=f_CKQSO_kerneldist_norm_05,rG_pop=f_CKQSO_kernel_norm_05,vG=0.5,rF=f_CKQSO_seed_norm_0_1,vF=1,m=0,otherparams=list(outfile="norm0_1norm05.txt"),b_dosimul=FALSE,b_doplot=TRUE,b_dosave=FALSE,c_fileprefix="norm0_1norm05",res_exact=norm0_1norm05_exact,res_approxBT=norm0_1norm05_approxBT,res_approxBF=norm0_1norm05_approxBF,res_popAlg=norm0_1norm05_popAlg,legendpos="topleft",b_replicate=FALSE,b_save_seeds=TRUE)
+l_setup_norm0_1norm05_n4_notsimulated<-list(n=4,pop_size=1000,delta=0.01,alpha=0.01,rG=f_CKQSO_kerneldist_norm_05,rG_pop=f_CKQSO_kernel_norm_05,vG=0.5,rF=f_CKQSO_seed_norm_0_1,vF=1,m=0,otherparams=list(outfile="norm0_1norm05_n4.txt"),b_dosimul=TRUE,b_doplot=TRUE,b_dosave=TRUE,c_fileprefix="norm0_1norm05_n4",res_exact=NULL,res_approxBT=NULL,res_approxBF=NULL,res_popAlg=NULL,legendpos="topleft",b_replicate=FALSE,b_save_seeds=TRUE)
+l_setup_norm0_1norm05_n6_notsimulated<-list(n=6,pop_size=1000,delta=0.01,alpha=0.01,rG=f_CKQSO_kerneldist_norm_05,rG_pop=f_CKQSO_kernel_norm_05,vG=0.5,rF=f_CKQSO_seed_norm_0_1,vF=1,m=0,otherparams=list(outfile="norm0_1norm05_n6.txt"),b_dosimul=TRUE,b_doplot=TRUE,b_dosave=TRUE,c_fileprefix="norm0_1norm05_n6",res_exact=NULL,res_approxBT=NULL,res_approxBF=NULL,res_popAlg=NULL,legendpos="topright",b_replicate=FALSE,b_save_seeds=TRUE)
+
+l_all_study_setups<-list(
+lsetup<-l_setup_norm0_1norm05_n4_notsimulated,
+lsetup<-l_setup_norm0_1norm05_n6_notsimulated
+)
+#expnorm1<-r.qso.l1.traj.sample(N=N,fQ=fQ,n=n,f0=f0,pop.size=pop.size,otherparams)
+
 

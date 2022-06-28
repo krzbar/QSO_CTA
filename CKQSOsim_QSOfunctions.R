@@ -72,7 +72,7 @@ f_CKQSO_sample<-function(n,rG,rF){
     Xn+sum(UjN)
 }
 
-f_dosimulation_forparamset<-function(n,pop_size,delta,alpha,rG,rG_pop,vG,rF,vF,m,b_dosimul,b_doplot,b_dosave,c_fileprefix,otherparams,res_exact,res_approxBT,res_approxBF,res_popAlg,legendpos="topleft"){
+f_dosimulation_forparamset<-function(n,pop_size,delta,alpha,rG,rG_pop,vG,rF,vF,m,b_dosimul,b_doplot,b_dosave,c_fileprefix,otherparams,res_exact,res_approxBT,res_approxBF,res_popAlg,legendpos="topleft",b_replicate=FALSE,b_save_seeds=TRUE){
     rexp(1)
     RNG_kind<-RNGkind()
     RNG_version<-getRversion()
@@ -80,16 +80,45 @@ f_dosimulation_forparamset<-function(n,pop_size,delta,alpha,rG,rG_pop,vG,rF,vF,m
     Rseed_approxBT<-NA
     Rseed_approxBF<-NA
     Rseed_popAlg<-NA
-    if(b_dosimul){Rseed_exact<-.Random.seed;res_exact<-replicate(pop_size,f_CKQSO_sample(n=n,rG=rG,rF=rF),simplify=TRUE)}
+    if (b_replicate){
+	load(paste0(c_fileprefix,".RData"))
+	RNGkind(kind = RNG_kind[1], normal.kind = RNG_kind[2], sample.kind = RNG_kind[3])
+	RNGversion(RNG_version)
+    }
+    if(b_dosimul){
+        if (b_replicate){
+	    .Random.seed<-Rseed_exact
+	}
+	Rseed_exact<-.Random.seed
+	res_exact<-replicate(pop_size,f_CKQSO_sample(n=n,rG=rG,rF=rF),simplify=TRUE)
+    }
     d_res_exact<-density(norm0_1norm05_exact)
     print("======================")
-    if(b_dosimul){Rseed_approxBT<-.Random.seed;res_approxBT<-f_CKQSO_approx_pop_sample_calcN(delta,alpha,m,vF,vG,n,pop_size,rG,BonferroniCorrect=TRUE)}
+    if(b_dosimul){
+        if (b_replicate){
+	    .Random.seed<-Rseed_approxBT
+	}
+	Rseed_approxBT<-.Random.seed
+	res_approxBT<-f_CKQSO_approx_pop_sample_calcN(delta,alpha,m,vF,vG,n,pop_size,rG,BonferroniCorrect=TRUE)
+    }
     d_res_approxBT<-density(norm0_1norm05_approxBT)
     print("======================")
-    if(b_dosimul){Rseed_approxBF<-.Random.seed;res_approxBF<-f_CKQSO_approx_pop_sample_calcN(delta,alpha,m,vF,vG,n,pop_size,rG,BonferroniCorrect=FALSE)}
+    if(b_dosimul){
+	if (b_replicate){
+	    .Random.seed<-Rseed_approxBF
+	}
+	Rseed_approxBF<-.Random.seed
+	res_approxBF<-f_CKQSO_approx_pop_sample_calcN(delta,alpha,m,vF,vG,n,pop_size,rG,BonferroniCorrect=FALSE)
+    }
     d_res_approxBF<-density(norm0_1norm05_approxBF)
     print("======================")
-    if(b_dosimul){Rseed_popAlg<-.Random.seed;res_popAlg<-f_KQSO_pop_traj_sample(rG_pop,n,rF,pop_size)}
+    if(b_dosimul){
+	if (b_replicate){
+	    .Random.seed<-Rseed_popAlg
+	}
+	Rseed_popAlg<-.Random.seed
+	res_popAlg<-f_KQSO_pop_traj_sample(rG_pop,n,rF,pop_size)
+    }
     d_res_popAlg<-density(res_popAlg)
 
 
@@ -105,6 +134,7 @@ f_dosimulation_forparamset<-function(n,pop_size,delta,alpha,rG,rG_pop,vG,rF,vF,m
 	legend(legendpos,legend=c("Alg. 2 (exact)","Alg. 3","Alg. 3 (with Rem. 2 correction)","Alg. 1"),pch=19,col=c(gray(0.9),gray(0.7),gray(0.5),"black"),bty="n")
         dev.off()
     }
-    save(RNG_kind,RNG_version,Rseed_exact,Rseed_approxBT,Rseed_approxBF,Rseed_popAlg,d_res_popAlg,d_res_exact,d_res_approxBT,d_res_approxBF,res_exact,res_approxBT,res_approxBF,res_popAlg,file=paste0(c_fileprefix,".RData"))
+    if (b_save_seeds){save(RNG_kind,RNG_version,Rseed_exact,Rseed_approxBT,Rseed_approxBF,Rseed_popAlg,d_res_popAlg,d_res_exact,d_res_approxBT,d_res_approxBF,res_exact,res_approxBT,res_approxBF,res_popAlg,file=paste0(c_fileprefix,".RData"))}
+    else{save(d_res_popAlg,d_res_exact,d_res_approxBT,d_res_approxBF,res_exact,res_approxBT,res_approxBF,res_popAlg,file=paste0(c_fileprefix,".RData"))}
     list(RNG_kind=RNG_kind,RNG_version=RNG_version,Rseed_exact=Rseed_exact,Rseed_approxBT=Rseed_approxBT,Rseed_approxBF=Rseed_approxBF,Rseed_popAlg=Rseed_popAlg,d_res_popAlg=d_res_popAlg,d_res_exact=d_res_exact,d_res_approxBT=d_res_approxBT,d_res_approxBF=d_res_approxBF,res_exact=res_exact,res_approxBT=res_approxBT,res_approxBF=res_approxBF,res_popAlg=res_popAlg)
 }
