@@ -13,10 +13,10 @@ f_CKQSO_kerneldist_norm_05<-function(numsim,...){rnorm(numsim,mean=0,sd=sqrt(0.5
 f_CKQSO_kernel_norm_05<-function(x,y,...){rnorm(1,mean=(x+y)/2,sd=sqrt(0.5))}
 f_CKQSO_seed_norm_0_1<-function(numsim,...){rnorm(numsim,mean=0,sd=sqrt(1))}
 f_CKQSO_seed_norm_0_10<-function(numsim,...){rnorm(numsim,mean=0,sd=sqrt(10))}
-f_CKQSO_seed_norm_1_1<-function(numsim,...){rnorm(numsim,mean=0,sd=sqrt(1))}
-f_CKQSO_seed_norm_1_10<-function(numsim,...){rnorm(numsim,mean=0,sd=sqrt(10))}
+f_CKQSO_seed_norm_1_1<-function(numsim,...){rnorm(numsim,mean=1,sd=sqrt(1))}
+f_CKQSO_seed_norm_1_10<-function(numsim,...){rnorm(numsim,mean=1,sd=sqrt(10))}
 f_CKQSO_seed_norm_0_01<-function(numsim,...){rnorm(numsim,mean=0,sd=sqrt(0.1))}
-f_CKQSO_seed_norm_1_01<-function(numsim,...){rnorm(numsim,mean=0,sd=sqrt(0.1))}
+f_CKQSO_seed_norm_1_01<-function(numsim,...){rnorm(numsim,mean=1,sd=sqrt(0.1))}
 f_CKQSO_seed_exp_1<-function(numsim,...){rexp(numsim,rate=1)}
 f_CKQSO_seed_exp_10<-function(numsim,...){rexp(numsim,rate=10)}
 f_CKQSO_seed_exp_01<-function(numsim,...){rexp(numsim,rate=0.1)}

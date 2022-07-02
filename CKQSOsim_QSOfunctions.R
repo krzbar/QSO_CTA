@@ -61,7 +61,7 @@ f_CKQSO_approx_pop_sample_calcN<-function(delta,alpha,m,vF,vG,n,pop_size,rG,Bonf
 ## rG, returns a vector of sampled values
     if (BonferroniCorrect){alpha<-alpha/pop_size}
     N<-min(n,as.integer(log((4*max(c(vF,(1-2^(-n))*vG/2)))/(alpha*delta^2)))+1)
-    print(N)
+    print(paste0("Approximation for n=",n," is N=",N," with Bonferroni correction=",BonferroniCorrect))
     sapply(rep(N,pop_size),.f_CKQSO_approx_pop_sample,m=m,rG=rG,simplify=TRUE)
 }
 
@@ -92,8 +92,7 @@ f_dosimulation_forparamset<-function(n,pop_size,delta,alpha,rG,rG_pop,vG,rF,vF,m
 	Rseed_exact<-.Random.seed
 	res_exact<-replicate(pop_size,f_CKQSO_sample(n=n,rG=rG,rF=rF),simplify=TRUE)
     }
-    d_res_exact<-density(norm0_1norm05_exact)
-    print("======================")
+    d_res_exact<-density(res_exact)
     if(b_dosimul){
         if (b_replicate){
 	    .Random.seed<-Rseed_approxBT
@@ -101,8 +100,7 @@ f_dosimulation_forparamset<-function(n,pop_size,delta,alpha,rG,rG_pop,vG,rF,vF,m
 	Rseed_approxBT<-.Random.seed
 	res_approxBT<-f_CKQSO_approx_pop_sample_calcN(delta,alpha,m,vF,vG,n,pop_size,rG,BonferroniCorrect=TRUE)
     }
-    d_res_approxBT<-density(norm0_1norm05_approxBT)
-    print("======================")
+    d_res_approxBT<-density(res_approxBT)
     if(b_dosimul){
 	if (b_replicate){
 	    .Random.seed<-Rseed_approxBF
@@ -110,8 +108,7 @@ f_dosimulation_forparamset<-function(n,pop_size,delta,alpha,rG,rG_pop,vG,rF,vF,m
 	Rseed_approxBF<-.Random.seed
 	res_approxBF<-f_CKQSO_approx_pop_sample_calcN(delta,alpha,m,vF,vG,n,pop_size,rG,BonferroniCorrect=FALSE)
     }
-    d_res_approxBF<-density(norm0_1norm05_approxBF)
-    print("======================")
+    d_res_approxBF<-density(res_approxBF)
     if(b_dosimul){
 	if (b_replicate){
 	    .Random.seed<-Rseed_popAlg
