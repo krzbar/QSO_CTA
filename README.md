@@ -1,6 +1,6 @@
 # QSO_CTA
 
-These are the R scripts and numerical results accompanying Bartoszek, and Pułka "Approximately simulating centred kernel quadratic stochastic operators".
+These are the R scripts and numerical results accompanying Bartoszek, and Pułka "Convergence and simulation of centred kernel quadratic stochastic operators".
 
 The R setup for the manuscript was as follows: R version  4.0.3 (2020-10-10) Platform: x86_64-pc-linux-gnu (64-bit) Running under: openSUSE Leap 15.2
 
