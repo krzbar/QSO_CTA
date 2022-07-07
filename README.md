@@ -61,5 +61,5 @@ In order to run the analyses one runs source("CKQSOsim_torun.R") in R. In the fi
 
 26) b_popAlg: logical, should the simulations according to Alg. 1 be run (TRUE)
 
-The result and plot files are all in the same directory as the scripts. The output files have been moved to the Results folder for clarity here. However, in order to replicate the study, all the RData files need to be copied from the Results folder into the directory where the R scripts R. This is in order for them to be able to read in the random seeds.
+The result and plot files are all in the same directory as the scripts. The output files have been moved to the Results folder for clarity here. However, in order to replicate the study, all the RData files need to be copied from the Results folder into the directory where the R scripts are. This is in order for them to be able to read in the random seeds.
 
