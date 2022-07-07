@@ -21,25 +21,3 @@ f_CKQSO_seed_exp_1<-function(numsim,...){rexp(numsim,rate=1)}
 f_CKQSO_seed_exp_10<-function(numsim,...){rexp(numsim,rate=10)}
 f_CKQSO_seed_exp_01<-function(numsim,...){rexp(numsim,rate=0.1)}
 
-
-# l_kernel_functions<-
-# l_seed_functions<-
-# v_n<-
-# v_pop_size<-
-# v_delta<-
-# v_alpha<-
-# 
-# l_setups<-Cartesian_product_lists(l_kernel_functions,l_seed_functions,v_n,v_pop_size,v_delta,v_alpha)
-# 
-# f_CKQSO_kernel_norm_05<-function(x,y,...){rnorm(1,mean=(x+y)/2,sd=sqrt(0.5))}
-# f_CKQSO_seed_norm_0_1<-function(x,y,...){rnorm(1,mean=0,sd=sqrt(1))}
-# f_CKQSO_seed_norm_0_10<-function(x,y,...){rnorm(1,mean=0,sd=sqrt(10))}
-# f_CKQSO_seed_norm_1_1<-function(x,y,...){rnorm(1,mean=0,sd=sqrt(1))}
-# f_CKQSO_seed_norm_1_10<-function(x,y,...){rnorm(1,mean=0,sd=sqrt(10))}
-# f_CKQSO_seed_norm_0_01<-function(x,y,...){rnorm(1,mean=0,sd=sqrt(0.1))}
-# f_CKQSO_seed_norm_1_01<-function(x,y,...){rnorm(1,mean=0,sd=sqrt(0.1))}
-# f_CKQSO_seed_exp_1<-function(x,y,...){rexp(1,rate=1)}
-# f_CKQSO_seed_exp_10<-function(x,y,...){rexp(1,rate=10)}
-# f_CKQSO_seed_exp_01<-function(x,y,...){rexp(1,rate=0.1)}
-
-## =============================================================================
