@@ -46,7 +46,7 @@ f_KQSO_pop_traj_sample<-function(rG,n,rF,pop_size,...){
 
 f_CKQSO_approx_sample<-function(delta,alpha,m,vF,vG,n,rG){
 ## rG, returns a vector of sampled values
-    N<-as.integer(log((4*max(c(vF,(1-2^(-n))*vG/2)))/(alpha*delta^2)))+1
+    N<-max(c(ceiling(log(max(c(4/(alpha*delta^2),8*vG/(alpha*delta^2+8*2^(-n)*vG))))),1))    
     UjN<-sapply(0:(N-1),function(j){mean(rG(2^(j)))})
     m+sum(UjN)
 }
@@ -61,7 +61,7 @@ f_CKQSO_approx_sample<-function(delta,alpha,m,vF,vG,n,rG){
 f_CKQSO_approx_pop_sample_calcN<-function(delta,alpha,m,vF,vG,n,pop_size,rG,BonferroniCorrect=TRUE){
 ## rG, returns a vector of sampled values
     if (BonferroniCorrect){alpha<-alpha/pop_size}
-    N<-min(n,as.integer(log((4*max(c(vF,(1-2^(-n))*vG/2)))/(alpha*delta^2)))+1)
+    N<-min(n,max(c(ceiling(log(max(c(4/(alpha*delta^2),8*vG/(alpha*delta^2+8*2^(-n)*vG))))),1)))    
     print(paste0("Approximation for n=",n," is N=",N," with Bonferroni correction=",BonferroniCorrect))
     sapply(rep(N,pop_size),.f_CKQSO_approx_pop_sample,m=m,rG=rG,simplify=TRUE)
 }
