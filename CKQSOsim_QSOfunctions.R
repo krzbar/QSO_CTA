@@ -1,5 +1,5 @@
 ## This file accompanies the manuscript: 
-## Bartoszek, Pulka "Approximately simulating quadratic stochastic operators"
+## Bartoszek, Pulka "Convergence and simulation of centred kernel quadratic stochastic operators"
 
 ## This software comes AS IS in the hope that it will be useful WITHOUT ANY WARRANTY, 
 ## NOT even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
